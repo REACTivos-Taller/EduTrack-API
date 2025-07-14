@@ -1,0 +1,64 @@
+{
+  "name": "edutrack-api",
+  "version": "1.0.0",
+  "description": "La herramienta definitiva para registrar salidas de alumnos.",
+  "main": "dist/src/index.js",
+  "scripts": {
+    "dev": "tsx --watch src/index.ts",
+    "start": "node dist/src/index.js",
+    "build": "tsc",
+    "type-check": "tsc --noEmit",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "prepare": "husky"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/REACTivos-Taller/EduTrack-API.git"
+  },
+  "keywords": [
+    "edutrack",
+    "kinal",
+    "taller"
+  ],
+  "author": "REACTivos",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/REACTivos-Taller/EduTrack-API/issues"
+  },
+  "homepage": "https://github.com/REACTivos-Taller/EduTrack-API#readme",
+  "devDependencies": {
+    "@eslint/js": "^9.28.0",
+    "@types/cors": "^2.8.18",
+    "@types/express": "^5.0.2",
+    "@types/jsonwebtoken": "^9.0.9",
+    "@types/morgan": "^1.9.9",
+    "@types/node": "^22.15.29",
+    "@types/swagger-jsdoc": "^6.0.4",
+    "@types/swagger-ui-express": "^4.1.8",
+    "eslint": "^9.28.0",
+    "eslint-config-prettier": "^10.1.5",
+    "globals": "^16.2.0",
+    "husky": "^9.1.7",
+    "prettier": "3.5.3",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.33.1"
+  },
+  "dependencies": {
+    "argon2": "^0.43.0",
+    "axios": "^1.9.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "express-rate-limit": "^7.5.0",
+    "express-validator": "^7.2.1",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.15.1",
+    "morgan": "^1.10.0",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
+  },
+  "type": "module"
+}
