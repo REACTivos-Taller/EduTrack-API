@@ -9,21 +9,21 @@ import { Registry } from './registry.model'
  *   movementType: 'entry' | 'exit';
  * }
  */
-export const registerMovement = async (
+export const addRegistry = async (
   req: Request,
   res: Response,
   next: NextFunction,
 ): Promise<void> => {
   try {
-    const { studentCardNumber, movementType } = req.body
+    const { studentCardNumber, type } = req.body
 
     const newRecord = await Registry.create({
       studentCardNumber,
-      movementType,
+      type,
     })
 
     res.status(201).json({
-      message: `Se ha registrado la ${movementType} del alumno con carné ${studentCardNumber}.`,
+      message: `Se ha registrado la ${type} del alumno con carné ${studentCardNumber}.`,
       record: newRecord,
     })
   } catch (error) {
