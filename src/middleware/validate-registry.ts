@@ -1,4 +1,4 @@
-import { body } from 'express-validator'
+import { body, query } from 'express-validator'
 import { validateFields, handleErrors } from '../helpers/error-handler.js'
 
 /**
@@ -13,7 +13,23 @@ export const registryValidator = [
   ),
   // movementType: debe existir y ser 'entry' o 'exit'
   body('type', 'Tipo de movimiento requerido').notEmpty().isIn(['entry', 'exit']),
+  // classroom: debe existir y ser un string
+  body('classroom', 'Salón requerido').notEmpty().isString(),
 
   validateFields,
   handleErrors,
+]
+
+/**
+ * Valida GET /v1/registries
+ */
+export const registryQueryValidator = [
+  query('classroom').optional().isString().withMessage('Salón inválido'),
+  query('studentCardNumber')
+    .optional()
+    .matches(/^[0-9]{7}$/)
+    .withMessage('Carné debe tener 7 dígitos'),
+  query('startDate').optional().isISO8601().withMessage('Fecha inválida'),
+  query('duration').optional().isInt({ min: 1 }).withMessage('Duración inválida'),
+  validateFields,
 ]
