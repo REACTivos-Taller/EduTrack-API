@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express'
-import { Registry } from './registry.model'
+import { Registry } from './registry.model.js'
 
 /**
  * Registra la salida o entrada de un alumno.
