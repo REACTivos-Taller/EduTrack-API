@@ -10,12 +10,15 @@ export interface RegistryDocument extends Document {
   type: 'entry' | 'exit'
   // Fecha y hora en que se registró el movimiento.
   date: Date
+  // Identificador o nombre del salón.
+  classroom: string
 }
 
 const RegistrySchema = new Schema<RegistryDocument>({
   studentCardNumber: { type: String, required: true },
   type: { type: String, required: true, enum: ['entry', 'exit'] },
   date: { type: Date, default: () => new Date() },
+  classroom: { type: String, required: true },
 })
 
 export const Registry = model<RegistryDocument>('Registry', RegistrySchema)

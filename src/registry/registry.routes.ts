@@ -1,7 +1,6 @@
-// src/registry/registry.routes.ts
 import { Router } from 'express'
-import { addRegistry } from './registry.controller'
-import { registryValidator } from '../middleware/validate-registry'
+import { addRegistry, getRegistries } from './registry.controller'
+import { registryValidator, registryQueryValidator } from '../middleware/validate-registry'
 
 const router = Router()
 
@@ -9,6 +8,12 @@ const router = Router()
  * POST /v1/registries/registry
  * Permite al profesor registrar la salida/entrada de un alumno.
  */
-router.post('/add', registryValidator, addRegistry)
+router.post('/registry', registryValidator, addRegistry)
+
+/**
+ * GET /v1/registries
+ * Obtiene registros filtrados.
+ */
+router.get('/', registryQueryValidator, getRegistries)
 
 export default router
