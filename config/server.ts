@@ -4,6 +4,7 @@ import helmet from 'helmet'
 import morgan from 'morgan'
 import { swaggerUi, swaggerDocs } from '../docs/swagger.js'
 import { dbConnection } from './mongo.js'
+import triggerRoutes from '../src/trigger/trigger.routes.js'
 import registryRoutes from '../src/registry/registry.routes.js'
 import apiLimiter from '../src/middleware/rate-limit.js'
 
@@ -38,6 +39,7 @@ const middlewares = (app: any) => {
 
 const routes = (app: Express) => {
   app.use('/v1/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs))
+  app.use('/v1/trigger', triggerRoutes)
   app.use('/v1/registries', registryRoutes)
 }
 
