@@ -8,7 +8,7 @@ import triggerRoutes from '../src/trigger/trigger.routes.js'
 import registryRoutes from '../src/registry/registry.routes.js'
 import apiLimiter from '../src/middleware/rate-limit.js'
 
-const middlewares = (app: any) => {
+const middlewares = (app: Express) => {
   app.use(express.urlencoded({ extended: false }))
   app.use(express.json())
   app.use(

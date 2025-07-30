@@ -7,7 +7,7 @@ const router = Router()
 router.get('', async (req: Request, res: Response) => {
   const verificationToken = req.headers['x-api-key']
   if (verificationToken !== process.env.EDUTRACK_KEY) {
-    return res.status(404).json({ error: 'No Encontrado' })
+    return res.status(401).json({ error: 'No autorizado' })
   }
   return res.status(200).json({ message: 'Trigger executed.' })
 })
