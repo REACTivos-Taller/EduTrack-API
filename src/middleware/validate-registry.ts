@@ -1,11 +1,13 @@
 import { body, query } from 'express-validator'
 import { validateFields, handleErrors } from '../helpers/error-handler.js'
+import { validateMsalJWT } from '../helpers/validate-session.js'
 
 /**
  * Validador para registrar movimiento de alumnos.
  * Comprueba existencia y formato de studentCardNumber y movementType.
  */
 export const registryValidator = [
+  // validateMsalJWT,
   // studentCardNumber: debe existir, ser string y contener exactamente 7 dígitos
   body('studentCardNumber', 'Número de carné requerido').notEmpty().isString(),
   body('studentCardNumber', 'El número de carné debe tener 7 dígitos numéricos').matches(
@@ -24,6 +26,7 @@ export const registryValidator = [
  * Valida GET /v1/registries
  */
 export const registryQueryValidator = [
+  // validateMsalJWT,
   query('classroom').optional().isString().withMessage('Salón inválido'),
   query('studentCardNumber')
     .optional()
