@@ -4,6 +4,6 @@
 
 ##### El administrador de alumnos para Kinal™
 
-[Instalar] • [Documentación] • [FAQ]
+[Documentación](https://edutrack.onrender.com/v1/docs) • [FAQ](#EduTrack)
 
 </div>

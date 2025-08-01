@@ -1,0 +1,192 @@
+paths:
+  /v1/registries/add:
+    post:
+      summary: Registra la salida o entrada de un alumno
+      tags:
+        - Registry
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                studentCardNumber:
+                  type: string
+                  example: '2023179'
+                  pattern: '^[0-9]{7}$'
+                  description: Número de carné del alumno (7 dígitos)
+                type:
+                  type: string
+                  enum: ['entry', 'exit']
+                  example: 'entry'
+                  description: Tipo de movimiento (entrada o salida)
+                classroom:
+                  type: string
+                  example: 'C-20'
+                  description: Identificador o nombre del salón
+              required:
+                - studentCardNumber
+                - type
+                - classroom
+      responses:
+        '201':
+          description: Movimiento registrado exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Se ha registrado la entry del alumno 2023179 en el salón A-101.'
+                  record:
+                    $ref: '#/components/schemas/Registry'
+        '400':
+          description: Error de validación
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'El número de carné debe tener 7 dígitos numéricos'
+        '401':
+          description: No autorizado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'No autorizado'
+        '500':
+          description: Error del servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Error al registrar movimiento'
+                  error:
+                    type: string
+  /v1/registries:
+    get:
+      summary: Obtiene registros filtrados por salón, carné o fechas
+      tags:
+        - Registry
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: classroom
+          in: query
+          description: Identificador o nombre del salón
+          required: false
+          schema:
+            type: string
+            example: 'A-101'
+        - name: studentCardNumber
+          in: query
+          description: Número de carné del alumno (7 dígitos)
+          required: false
+          schema:
+            type: string
+            example: '2023179'
+            pattern: '^[0-9]{7}$'
+        - name: startDate
+          in: query
+          description: Fecha de inicio en formato YYYY-MM-DD
+          required: false
+          schema:
+            type: string
+            format: date
+            example: '2025-08-01'
+        - name: duration
+          in: query
+          description: Duración en días
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            example: 7
+      responses:
+        '200':
+          description: Registros obtenidos
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  records:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Registry'
+        '400':
+          description: Error de validación
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Carné debe tener 7 dígitos'
+        '401':
+          description: No autorizado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'No autorizado'
+        '500':
+          description: Error del servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Error al obtener registros'
+                  error:
+                    type: string
+components:
+  schemas:
+    Registry:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: Identificador único del registro
+        studentCardNumber:
+          type: string
+          example: '2023179'
+          pattern: '^[0-9]{7}$'
+          description: Número de carné del alumno
+        type:
+          type: string
+          enum: ['entry', 'exit']
+          example: 'entry'
+          description: Tipo de movimiento
+        date:
+          type: string
+          format: date-time
+          example: '2025-08-01T07:14:00.000Z'
+          description: Fecha y hora del movimiento
+        classroom:
+          type: string
+          example: 'A-101'
+          description: Identificador o nombre del salón
+      required:
+        - studentCardNumber
+        - type
+        - classroom
