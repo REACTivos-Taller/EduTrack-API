@@ -78,6 +78,7 @@ export const validateMsalJWT = async (req: Request, res: Response, next: NextFun
     req.user = { id: payload.oid, email, name: payload.given_name }
     console.log('User:', req.user)
     next()
+    return
   } catch (err) {
     console.error('Validation Error:', (err as Error).message)
     return res.status(500).json({
